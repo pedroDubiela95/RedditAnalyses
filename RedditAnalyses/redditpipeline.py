@@ -25,7 +25,6 @@ import seaborn                         as     sns
 class RedditAnalyses:
     """
     A class to represent a RedditAnalyses.
-    
     ...
     
     Attributes
@@ -55,7 +54,7 @@ class RedditAnalyses:
     
    """
   
-        
+    # Constructor
     def __init__(self, client_id, client_secret, password, username, 
                  user_agent, num_chars_min, topic, limit_posts = 1000, random_state = 0):
         """
@@ -93,8 +92,10 @@ class RedditAnalyses:
         self.__topic         = topic
         self.__limit_posts   = limit_posts
         self.__random_state  = random_state 
+        self.__data          = None
+        self.__label         = None
         
-
+    # Webscrapping
     def load_from_reddit(self):
         """
         This method performs the webscrapping from Reddit. It loads and creates the labels for each
@@ -119,25 +120,29 @@ class RedditAnalyses:
         # Where the results will be storage
         data   = []
         labels = []
+        classification = {}
      
         for i, subject in enumerate(self.__topic):
             
-         n_chars = lambda post : len(re.sub(pattern = '\W|\d', repl = '', string = post.selftext))
-         mask    = lambda post : n_chars(post) >= self.__num_chars_min
-         
-         # Posts extraction
-         submissions = api_reddit.subreddit(subject).new(limit = self.__limit_posts)
-     
-         # Posts filter
-         posts = [post.selftext for post in filter(mask, submissions)]
-         
-         data.extend(posts)
-         labels.extend([i] * len(posts))
+            n_chars = lambda post : len(re.sub(pattern = '\W|\d', repl = '', string = post.selftext))
+            mask    = lambda post : n_chars(post) >= self.__num_chars_min
+            
+            # Posts extraction
+            submissions = api_reddit.subreddit(subject).new(limit = self.__limit_posts)
+            
+            # Posts filter
+            posts = [post.selftext for post in filter(mask, submissions)]
+            
+            classification[subject] = (posts, [i] * len(posts))
+            data.extend(classification[subject][0])
+            labels.extend(classification[subject][1])
         
         self.__data, self.__labels = data, labels
         print("Operation perfomed successfully")
-     
+        return classification
         
+     
+    # Split data into training and testing
     def split_data(self, TEST_SIZE):
         """
         This method performs the data splitting into train and test.
@@ -170,6 +175,7 @@ class RedditAnalyses:
         return X_train, X_test, y_train, y_test 
      
      
+    # Create Natural Language Processing Pipeline
     def pipeline_NLP(self, MIN_DOC_FREQ, N_COMPONENTS, N_ITER):
         """
         This method creates the Natural Language Processing Pipeline.
@@ -201,8 +207,7 @@ class RedditAnalyses:
         print("Operation perfomed successfully")
         
      
-     
-     
+    # Create models
     def create_models(self, N_NEIGHBORS = 4, CV = 4):
         """
         This method creates the models for classification.
@@ -224,7 +229,7 @@ class RedditAnalyses:
         print("Operation perfomed successfully")
          
         
-     
+    # Traine evaluate
     def train_evaluate(self, X_train, X_test, y_train, y_test):
         """
         This method train and evaluate the classification models.
@@ -268,6 +273,8 @@ class RedditAnalyses:
             
         self.__results = results
         
+        
+    # Distribution of topics    
     def plot_distribution(self):
         """
         This method creates a bar plot showing the frequency distribution of topics
@@ -282,7 +289,8 @@ class RedditAnalyses:
         plt.xticks(rotation = 45)
         plt.show()
         
-
+    
+    # Models performance
     def plot_confusion(self, y_test):
         """
         This method create a cofusion matrix by each model
