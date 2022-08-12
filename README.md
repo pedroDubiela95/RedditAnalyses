@@ -1,7 +1,7 @@
 # RedditAnalyses
 <p>RedditAnalyses is a Python language package for processing and analyzing posts from the Reddit website https://www.reddit.com/.
 </p>
-<p>The package works with text classification from supervised learning. With this package it is possible to extract (webscrapping), analyze and classify the posts. From the trained model, it is possible to classify new posts, as long as they refer to the same subjects that were used to train the model.</p>
+<p>The package works with text classification from supervised learning. With this package it is possible to extract (webscraping), analyze and classify the posts. From the trained model, it is possible to classify new posts, as long as they refer to the same subjects that were used to train the model.</p>
 <p>
 The package was built in such a way to allow the construction of 3 models simultaneously, which are KNN, Random Forest and Logistic Regression with Cross-Validation
 </p>
