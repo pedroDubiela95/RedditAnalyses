@@ -1,13 +1,13 @@
 # RedditAnalyses
-<p>RedditAnalyses is a Python language package for processing and analyzing posts from the Reddit website https://www.reddit.com/ .
+<p>RedditAnalyses é um pacote em linguagem Python para processamento e análise de posts provenientes do site Reddit https://www.reddit.com/ .
 </p>
-<p>The package works with text classification from supervised learning. With this package it is possible to extract (webscrapping), analyze and classify the posts. From the trained model, it is possible to classify new posts, as long as they refer to the same subjects that were used to train the model.</p>
+<p>O pacote trabalha com classificação de texto a partir de aprendizado supervisionado. Com esse pacote é possível extrair (webscrapping), analisar e classificar os posts. A partir do modelo treinado, é possível classificar novos posts, desde que sejam referentes ao mesmos assuntos que foram utilizados para treinar o modelo.</p>
 <p>
-The package was built in such a way to allow the construction of 3 models simultaneously, which are KNN, Random Forest and Logistic Regression with Cross-Validation
+O pacote foi construido de tal forma a permitir a construção de 3 modelos simultânemante, os quais são KNN, Random Forest e Logistic Regression com Cross-Validation
 </p>
 
 ## Using <RedditAnalyses>
-Module Import
+Importando o módulo
 ```
 from RedditAnalyses.redditpipeline import *
 ```
@@ -24,7 +24,7 @@ num_chars_min = 100
 limit_posts   = 1000
 reddit = RedditAnalyses(client_id, client_secret, password, username, user_agent, num_chars_min, topic)
 ```
-Run the pipeline
+Executando o pipeline
 ```
 # Load
 classification = reddit.load_from_reddit()

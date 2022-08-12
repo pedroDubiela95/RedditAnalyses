@@ -2,11 +2,11 @@ from RedditAnalyses.redditpipeline import *
 
 if __name__ == "__main__":
 
-    client_id     = "**************"
-    client_secret = "**************"
-    password      = "**************"
-    username      = "**************"
-    user_agent    = "**************" 
+    client_id     = "aQVyLU4DxNLAuAlV9_2A1g"
+    client_secret = "8A49jYmeZJKBREsu-gfJOCsYTiXKhA"
+    password      = "0904eb78"
+    username      = "pedroDubiela"
+    user_agent    = "pedrobiela" 
     topic         = ['datascience', 'machinelearning', 'physics', 'astrology', 'conspiracy']
     num_chars_min = 100
     limit_posts   = 1000
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     reddit.plot_confusion(y_test)
 
     # Predict
-    X = ["Python is very used", "Naive Bayes", "Cancer"]
+    X = ["One of the most common uses for Python is in its ability to create and manage data structures quickly ", "Naive Bayes and Gradient Descent", "Scorpio and Pisces"]
     yp = reddit.predict(X)
    
     # Only Logistic Regression (the best model)
