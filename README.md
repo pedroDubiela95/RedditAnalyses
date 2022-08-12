@@ -1,5 +1,5 @@
 # RedditAnalyses
-<p>RedditAnalyses is a Python language package for processing and analyzing posts from the Reddit website https://www.reddit.com/ .
+<p>RedditAnalyses is a Python language package for processing and analyzing posts from the Reddit website https://www.reddit.com/.
 </p>
 <p>The package works with text classification from supervised learning. With this package it is possible to extract (webscrapping), analyze and classify the posts. From the trained model, it is possible to classify new posts, as long as they refer to the same subjects that were used to train the model.</p>
 <p>
@@ -12,7 +12,7 @@ Module Import
 from RedditAnalyses.redditpipeline import *
 ```
 
-Utilizando a API disponibilizada pelo próprio Reddit para realizar webscrapping
+Using the API provided by Reddit itself to perform web scraping
 ```
 client_id     = "**************"
 client_secret = "**************"
