@@ -8,6 +8,7 @@
 import re     
 import praw   
 import config 
+import pandas                          as     pd
 import numpy                           as     np 
 from   sklearn.model_selection         import train_test_split
 from   sklearn.feature_extraction.text import TfidfVectorizer
@@ -223,7 +224,7 @@ class RedditAnalyses:
         
         model1 = KNeighborsClassifier(n_neighbors = N_NEIGHBORS)
         model2 = RandomForestClassifier(random_state = self.__random_state)
-        model3 = LogisticRegressionCV(cv = CV, random_state = self.__random_state, max_iter = 500)
+        model3 = LogisticRegressionCV(cv = CV, random_state = self.__random_state)
         
         self.__models = [("KNN", model1), ("RF", model2), ("LRcv", model3)]
         print("Operation perfomed successfully")
@@ -319,4 +320,20 @@ class RedditAnalyses:
             plt.show()
     
     
+    # Predict
+    def predict(self, X):
+        
+        results = []
+        for name, model in self.__models:
+                
+            pipe = Pipeline(steps = self.__pipeline_NLP + [(name, model)])
+            
+            # Predict
+            y_predict = pipe.predict(X)
+            
+            # Storage
+            results.append([model, {'model':name, 'input':X, 'predictions':y_predict}])  
+            
+        return results
+        
 
